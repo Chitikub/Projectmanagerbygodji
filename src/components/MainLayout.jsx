@@ -5,6 +5,8 @@ import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import ProfileBadge from './ProfileBadge';
 import { useAuth } from '../context/AuthContext';
+import { useLocation } from 'react-router-dom';
+import MySwal, { toast } from '../utils/swal';
 
 
 const MainLayout = () => {
@@ -20,11 +22,43 @@ const MainLayout = () => {
 
   const handleLogout = async () => {
     try {
-      await signOut(auth);
+      const result = await MySwal.fire({
+        title: 'ออกจากระบบ?',
+        text: 'คุณแน่ใจหรือไม่ว่าต้องการออกจากระบบ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'ออกจากระบบ',
+        cancelButtonText: 'ยกเลิก'
+      })
+
+      if (result.isConfirmed) {
+        await signOut(auth);
+        toast('ออกจากระบบเรียบร้อย', 'success');
+      }
     } catch (error) {
       console.error("Logout Error:", error);
+      toast('เกิดข้อผิดพลาดในการออกจากระบบ', 'error');
     }
   };
+
+  const location = useLocation();
+
+  React.useEffect(() => {
+    const mapPathToName = (path) => {
+      const map = {
+        '/': 'Dashboard',
+        '/project-manager': 'Project Manager',
+        '/tasks': 'Tasks',
+        '/logs': 'Daily Log',
+        '/documentation': 'Documentation',
+        '/profile': 'Profile Settings'
+      };
+      return map[path] || path;
+    };
+
+    const name = mapPathToName(location.pathname);
+    toast(`Opened ${name}`, 'info');
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen bg-slate-50">

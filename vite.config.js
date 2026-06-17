@@ -11,7 +11,5 @@ export default defineConfig({
     // เพิ่มการจัดการ WASM ให้ชัดเจนขึ้น
     target: 'esnext' 
   },
-  optimizeDeps: {
-    exclude: ['@firebase/auth', '@firebase/firestore'] // บังคับให้ Vite ไม่ต้องพยายาม Compile lib เหล่านี้ซ้ำ
-  }
+  // keep default dependency optimization so Firebase modules register correctly
 })
