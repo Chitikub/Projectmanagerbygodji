@@ -182,3 +182,36 @@
     border-right-color: var(--border);
   }
 }
+
+.galaxy-border {
+  position: relative;
+  animation: galaxy-glow 4s ease-in-out infinite;
+}
+
+@keyframes galaxy-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.18), 0 0 30px rgba(168, 85, 247, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(56, 189, 248, 0.25), 0 0 45px rgba(168, 85, 247, 0.18);
+  }
+}
+
+.galaxy-title {
+  display: inline-block;
+  animation: galaxy-float 5s ease-in-out infinite;
+  background: linear-gradient(135deg, #7c3aed 0%, #38bdf8 45%, #ec4899 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+@keyframes galaxy-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}

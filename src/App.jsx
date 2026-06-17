@@ -1,26 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { auth } from "./firebase";
-import { onAuthStateChanged } from 'firebase/auth';
-import Login from './pages/login'
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { TaskProvider } from './context/TaskContext'; 
+import { AuthProvider, useAuth } from './context/AuthContext'; // import useAuth มาด้วย
+import AppRoutes from './router/AppRoutes';
+import Login from './pages/Login'; 
 
-function App() {
-  const [user, setUser] = useState(null);
+// สร้าง Component ย่อยเพื่อจัดการเรื่อง Router จะได้ใช้ useAuth() ได้
+const MainContent = () => {
+  const { user, loading } = useAuth(); // ดึง user และ loading มาจาก AuthContext
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
-  }, []);
+  if (loading) return <div>Loading...</div>;
 
   return (
-    <>
-      {user ? (
-        <div className="p-10 text-white">ยินดีต้อนรับสู่ Dashboard!</div>
-      ) : (
-        <Login />
-      )}
-    </>
+    <Router>
+      {user ? <AppRoutes /> : <Login />}
+    </Router>
+  );
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <TaskProvider>
+        <MainContent />
+      </TaskProvider>
+    </AuthProvider>
   );
 }
 

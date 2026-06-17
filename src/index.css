@@ -1,3 +1,36 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+.title-epic {
+  background: linear-gradient(90deg, #ff8a00, #e52e71, #9c27b0, #ff8a00);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s infinite linear;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.title-legendary {
+  background: linear-gradient(90deg, #00f2fe, #4facfe, #00f2fe);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 2s infinite linear;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+}
+
+.frame-cyber { border-color: #00f2fe; box-shadow: 0 0 15px rgba(0,242,254,0.5); }
+.frame-lava { border-color: #ff416c; box-shadow: 0 0 15px rgba(255,65,108,0.5); }
+.frame-toxic { border-color: #00b09b; box-shadow: 0 0 15px rgba(0,176,155,0.5); }
+.frame-void { border-color: #b12a5b; box-shadow: 0 0 15px rgba(177,42,91,0.5); }
+
+@keyframes shine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.frame-hex { clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); }
+.frame-squircle { clip-path: path("M 0,50 C 0,0 0,0 50,0 100,0 100,0 100,50 100,100 100,100 50,100 0,100 0,100 0,50 Z"); }
+.frame-diamond { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
